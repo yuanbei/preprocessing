@@ -15,15 +15,15 @@ public class TestClass  extends Application
 
 If you run python shell like this
 
-`
+```python
 python preprocessing.py -f testclass.java -c config.json
-`
+```
 
 The out put file's content is like this
 
-`
+```java
 public class TestClass  extends Application
 {
      public String a = "abc";
 }
-`
+```
