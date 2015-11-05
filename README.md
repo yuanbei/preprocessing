@@ -11,12 +11,12 @@ public class TestClass  extends Application
      public String a = "def";
 #endif
 }
-```java
 
 If you run python shell like this
+
 ```
 python preprocessing.py -f testclass.java -c config.json
-```
+
 The out put file's content is like this
 
 ```java
@@ -24,4 +24,3 @@ public class TestClass  extends Application
 {
      public String a = "abc";
 }
-```java
