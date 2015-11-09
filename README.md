@@ -27,3 +27,21 @@ public class TestClass  extends Application
      public String a = "abc";
 }
 ```
+### Requirements
+[PLY(Python Lex-Yacc)](https://github.com/dabeaz/ply)
+
+### Usage 
+```python
+preprocessing.py [-h] [-i INPUT] [-m MACROS] [-o OUTPUT] [-e EXCLUDE]
+```
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i INPUT, --input INPUT
+                        path to the input files dictionary
+  -m MACROS, --macros MACROS
+                        macros define file, contents split by comma
+  -o OUTPUT, --output OUTPUT
+                        path to the output files dictionary
+  -e EXCLUDE, --exclude EXCLUDE
+                        excluded files file
