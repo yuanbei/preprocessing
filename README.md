@@ -36,6 +36,7 @@ preprocessing.py [-h] [-i INPUT] [-m MACROS] [-o OUTPUT] [-e EXCLUDE]
 ```
 
 optional arguments:
+```python
   -h, --help            show this help message and exit
   -i INPUT, --input INPUT
                         path to the input files dictionary
@@ -45,3 +46,4 @@ optional arguments:
                         path to the output files dictionary
   -e EXCLUDE, --exclude EXCLUDE
                         excluded files file
+```
