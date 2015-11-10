@@ -4,3 +4,4 @@
 .cpp
 .mm
 .py
+.git
