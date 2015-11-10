@@ -1,5 +1,5 @@
 ### Preprocessing
-Preprocessing is a python tool which complete the preprocessing bussiness for non c famliy language.
+Preprocessing is a python tool which completes the preprocessing bussiness for non c famliy language.
 You can use it in java code like this:
 
 ```java
