@@ -16,7 +16,7 @@ public class TestClass  extends Application
 If you run python shell like this
 
 ```python
-python preprocessing.py -f testclass.java -c config.json
+python preprocessing.py -i testb/ -m macros.txt -o testout/ -e exclude.txt
 ```
 
 The out put file's content is like this
