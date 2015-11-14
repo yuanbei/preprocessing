@@ -15,17 +15,21 @@ from __future__ import generators
 # a basic preprocessor working.   Other modules may import these if they want
 # -----------------------------------------------------------------------------
 
+#tokens = (
+#   'CPP_ID','CPP_INTEGER', 'CPP_FLOAT', 'CPP_STRING', 'CPP_CHAR', 'CPP_WS', 'CPP_POUND','CPP_DPOUND'
+#)
+
 tokens = (
-   'CPP_ID','CPP_INTEGER', 'CPP_FLOAT', 'CPP_STRING', 'CPP_CHAR', 'CPP_WS', 'CPP_POUND','CPP_DPOUND'
+   'CPP_ID','CPP_INTEGER', 'CPP_FLOAT', 'CPP_STRING', 'CPP_CHAR',  'CPP_POUND','CPP_DPOUND'
 )
 
 literals = "+-*/%|&~^<>=!?()[]{}.,;:\\\'\""
 
 # Whitespace
-def t_CPP_WS(t):
-    r'\s+'
-    t.lexer.lineno += t.value.count("\n")
-    return t
+#def t_CPP_WS(t):
+#    r'\s+'
+#    t.lexer.lineno += t.value.count("\n")
+#    return t
 
 t_CPP_POUND = r'\#'
 t_CPP_DPOUND = r'\#\#'
@@ -131,6 +135,7 @@ class Macro(object):
 # Object representing a preprocessor.  Contains macro definitions,
 # include directories, and other information
 # ------------------------------------------------------------------
+import re
 
 class Preprocessor(object):
     def __init__(self,lexer=None):
@@ -140,6 +145,7 @@ class Preprocessor(object):
         self.macros = { }
         self.path = []
         self.temp_path = []
+        self.white_space_pattern = re.compile(r'\s+')
 
         # Probe the lexer for selected tokens
         self.lexprobe()
@@ -610,9 +616,9 @@ class Preprocessor(object):
                 # Preprocessor directive
 
                 # insert necessary whitespace instead of eaten tokens
-                for tok in x:
-                    if tok.type in self.t_WS and '\n' in tok.value:
-                        chunk.append(tok)
+                #for tok in x:
+                #    if tok.type in self.t_WS and '\n' in tok.value:
+                #        chunk.append(tok)
                 
                 dirtokens = self.tokenstrip(x[i+1:])
                 if dirtokens:
@@ -769,7 +775,7 @@ class Preprocessor(object):
     def define(self,tokens):
         if isinstance(tokens,(str,unicode)):
             tokens = self.tokenize(tokens)
-
+        #print tokens
         linetok = tokens
         try:
             name = linetok[0]
@@ -780,7 +786,7 @@ class Preprocessor(object):
             if not mtype:
                 m = Macro(name.value,[])
                 self.macros[name.value] = m
-            elif mtype.type in self.t_WS:
+            elif mtype.type in self.t_WS or self.white_space_pattern.match(mtype.value):
                 # A normal macro
                 m = Macro(name.value,self.tokenstrip(linetok[2:]))
                 self.macros[name.value] = m
@@ -886,7 +892,7 @@ def main():
     parameters = parser.parse_args()
     macros = parameters.macros
     macros_list = macros.split(';')
-    print macros_list
+    #print macros_list
     import ply.lex as lex
     lexer = lex.lex()
 
@@ -898,7 +904,7 @@ def main():
     p = Preprocessor(lexer)
     for m in macros_list:
         m = m.strip().strip('\n')
-        print m
+        print "define %s" %m
         p.define(m)
 
     p.parse(input, parameters.input)
@@ -907,7 +913,7 @@ def main():
         tok = p.token()
         if not tok: break
         output += tok.value
-        print(p.source, tok)
+        #print(p.source, tok)
     print output
     
     import io
