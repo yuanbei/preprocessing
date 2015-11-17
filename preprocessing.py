@@ -28,11 +28,11 @@ class PrintProgress():
 class PreProcesser():
 
     def __init__(self, parameters):
-       self.input_dir = parameters.input;
-       self.output_dir = parameters.output;
+       self.input_files = parameters.input;
+       self.output_files = parameters.output;
        self.exclude_files = []
-       if not os.path.exists(self.output_dir):
-           os.makedirs(self.output_dir)
+       if not os.path.exists(self.output_files):
+           os.makedirs(self.output_files)
        with io.open(parameters.macros, 'r') as handle:
            self.macros = handle.read()
 
@@ -41,16 +41,24 @@ class PreProcesser():
     
     def DoPreProcessing(self):
         printProgress = PrintProgress('DoPreProcessing')
-        for root,dirs,files in os.walk(self.input_dir):
-            for file in files:
-                input_file = root + os.sep + file
-                if self.is_excluded(file):
-                    continue
-                output_file = input_file.replace(self.input_dir, self.output_dir)
-                output_file_dir = output_file.rstrip(file)
-                if not os.path.exists(output_file_dir):
-                    os.makedirs(output_file_dir)
-                self.preprocess_file(input_file, output_file)
+        if os.path.isfile(self.input_files):
+            if not self.is_excluded(self.input_files):
+                if not os.path.exists(self.output_files):
+                    os.makedirs(self.output_files)
+                output_file = self.output_files + os.path.basename(self.input_files)
+                self.preprocess_file(self.input_files, output_file)
+        else:
+            #TODO(yuanbe.clj) Complete the logic
+            for root,dirs,files in os.walk(self.input_files):
+                for file in files:
+                    input_file = root + os.sep + file
+                    if self.is_excluded(file):
+                        continue
+                    output_file = input_file.replace(self.input_files, self.output_files)
+                    output_file_dir = output_file.rstrip(file)
+                    if not os.path.exists(output_file_dir):
+                        os.makedirs(output_file_dir)
+                    self.preprocess_file(input_file, output_file)
         printProgress.printSpendingTime()
 
     def preprocess_file(self, input_file, output_file):
@@ -69,10 +77,10 @@ class PreProcesser():
                 return True
         return False
 def main():
-    parser = argparse.ArgumentParser(description='Run Preprocessing')
+    parser = argparse.ArgumentParser(description='Run Preprocessing for non c family languages')
     parser.add_argument(
       '-i', '--input', type=str,
-      help='path to the input files dictionary'
+      help='path to the input files dictionary or a single file'
     )
   
     parser.add_argument(
