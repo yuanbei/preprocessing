@@ -1,5 +1,6 @@
-### Preprocessing
+### Run Preprocessing for non c family languages
 Preprocessing is a python tool which completes the preprocessing bussiness for non c famliy language.
+
 You can use it in java code like this:
 
 ```java
@@ -13,13 +14,7 @@ public class TestClass  extends Application
 }
 ```
 
-If you run python shell like this
-
-```python
-python preprocessing.py -i testb/ -m macros.txt -o testout/ -e exclude.txt
-```
-
-The out put file's content is like this
+After doing preprocessing on this file, the out put file's content is like this
 
 ```java
 public class TestClass  extends Application
@@ -30,16 +25,17 @@ public class TestClass  extends Application
 ### Requirements
 [PLY(Python Lex-Yacc)](https://github.com/dabeaz/ply)
 
-### Usage 
+### Usage
 ```python
 preprocessing.py [-h] [-i INPUT] [-m MACROS] [-o OUTPUT] [-e EXCLUDE]
 ```
 
 optional arguments:
 ```python
+optional arguments:
   -h, --help            show this help message and exit
   -i INPUT, --input INPUT
-                        path to the input files dictionary
+                        path to the input files dictionary or a single file
   -m MACROS, --macros MACROS
                         macros define file, contents split by comma
   -o OUTPUT, --output OUTPUT
@@ -47,3 +43,16 @@ optional arguments:
   -e EXCLUDE, --exclude EXCLUDE
                         excluded files file
 ```
+
+### Please Note
+1. It will traverse the input files, do preprocessing for every file if the file path
+does not in excluded file list.
+
+2. It supports three macros command inlcude #define, #incldue,#undefine.
+
+3. If macros file contains this content "WOW_BUILD 1; WOW_I18N", it will be translated
+into two macro command "#define WOW_BUILD 1", "#define WOW_I18N".
+
+4. Exclude files file can be used to exclude some special files and directories.If
+it contains this content ".python .git", every file path contain .python or .git will
+be excluded. ie home/test/.git/test.java.
