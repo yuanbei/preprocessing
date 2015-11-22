@@ -35,11 +35,11 @@ optional arguments:
 optional arguments:
   -h, --help            show this help message and exit
   -i INPUT, --input INPUT
-                        path to the input files dictionary or a single file
+                        path to a directory or a file
   -m MACROS, --macros MACROS
                         macros define file, contents split by comma
   -o OUTPUT, --output OUTPUT
-                        path to the output files dictionary
+                        path to the output files directory
   -e EXCLUDE, --exclude EXCLUDE
                         excluded files file
 ```

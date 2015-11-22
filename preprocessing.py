@@ -80,7 +80,7 @@ def main():
     parser = argparse.ArgumentParser(description='Run Preprocessing for non c family languages')
     parser.add_argument(
       '-i', '--input', type=str,
-      help='path to the input files dictionary or a single file'
+      help='path to a directory or a file'
     )
   
     parser.add_argument(
@@ -90,7 +90,7 @@ def main():
 
     parser.add_argument(
       '-o', '--output', type=str,
-      help='path to the output files dictionary'
+      help='path to the output files directory'
     )
     
 
