@@ -6,3 +6,11 @@
 .py
 .swp
 .git
+.png
+.jpeg
+.jpg
+.webp
+.gif
+.jar
+.class
+.md

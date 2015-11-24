@@ -42,18 +42,14 @@ class PreProcesser():
     def DoPreProcessing(self):
         printProgress = PrintProgress('DoPreProcessing')
         if os.path.isfile(self.input_files):
-            if not self.is_excluded(self.input_files):
-                if not os.path.exists(self.output_files):
-                    os.makedirs(self.output_files)
-                output_file = self.output_files + os.path.basename(self.input_files)
-                self.preprocess_file(self.input_files, output_file)
+            if not os.path.exists(self.output_files):
+                os.makedirs(self.output_files)
+            output_file = self.output_files + os.path.basename(self.input_files)
+            self.preprocess_file(self.input_files, output_file)
         else:
-            #TODO(yuanbe.clj) Complete the logic
             for root,dirs,files in os.walk(self.input_files):
                 for file in files:
                     input_file = root + os.sep + file
-                    if self.is_excluded(file):
-                        continue
                     output_file = input_file.replace(self.input_files, self.output_files)
                     output_file_dir = output_file.rstrip(file)
                     if not os.path.exists(output_file_dir):
@@ -62,13 +58,17 @@ class PreProcesser():
         printProgress.printSpendingTime()
 
     def preprocess_file(self, input_file, output_file):
-        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-        CPP_SCRIPT = os.path.join(BASE_DIR, "cpp_preprocesser.py")
-        try:
-            subprocess.check_call([sys.executable, CPP_SCRIPT, "-i=%s" %input_file, "-m=%s" %self.macros, "-o=%s" %output_file])
-        except subprocess.CalledProcessError as e:
-            print >>sys.stderr,e
-            print >>sys.stderr, "Failed to run cpp_preprocesser.py!"
+        print input_file
+        if self.is_excluded(input_file):
+            shutil.copy(input_file, output_file)
+        else:
+            BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+            CPP_SCRIPT = os.path.join(BASE_DIR, "cpp_preprocesser.py")
+            try:
+                subprocess.check_call([sys.executable, CPP_SCRIPT, "-i=%s" %input_file, "-m=%s" %self.macros, "-o=%s" %output_file])
+            except subprocess.CalledProcessError as e:
+                print >>sys.stderr,e
+                print >>sys.stderr, "Failed to run cpp_preprocesser.py!"
 
     def is_excluded(self, file):
         for exclude_file in self.exclude_files:

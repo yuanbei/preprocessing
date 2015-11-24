@@ -900,11 +900,12 @@ def main():
     import sys
     f = open(parameters.input)
     input = f.read()
+    f.close()
 
     p = Preprocessor(lexer)
     for m in macros_list:
         m = m.strip().strip('\n')
-        print "define %s" %m
+        #print "define %s" %m
         p.define(m)
 
     p.parse(input, parameters.input)
@@ -914,11 +915,11 @@ def main():
         if not tok: break
         output += tok.value
         #print(p.source, tok)
-    print output
+    #print output
     
-    import io
-    with io.open(parameters.output, 'w') as handle:
-        handle.write(unicode(output))
+    output_file = open(parameters.output, 'w+')
+    output_file.write(output)
+    output_file.close()
 
 if __name__ == '__main__':
   main()
