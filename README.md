@@ -43,6 +43,10 @@ optional arguments:
   -e EXCLUDE, --exclude EXCLUDE
                         excluded files file
 ```
+### Support three basic macros commands
+1. include
+2. define
+3. undef
 
 ### Please Note
 1. It will traverse the input files, do preprocessing for every file if the file path
