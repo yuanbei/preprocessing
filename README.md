@@ -43,7 +43,7 @@ optional arguments:
   -e EXCLUDE, --exclude EXCLUDE
                         excluded files file
 ```
-### Support three basic macros commands
+### Support three basic macro commands
 1. include
 2. define
 3. undef
