@@ -1,4 +1,4 @@
-### Run Preprocessing for non c family languages
+### Run preprocessing for non c family languages
 Preprocessing is a python tool which completes the preprocessing bussiness for non c famliy language.
 
 You can use it in java code like this:
