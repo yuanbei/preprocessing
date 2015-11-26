@@ -14,3 +14,8 @@
 .jar
 .class
 .md
+bin
+.so
+.o
+.d
+.psd
