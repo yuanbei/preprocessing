@@ -28,9 +28,10 @@ class PrintProgress():
 class PreProcesser():
 
     def __init__(self, parameters):
-       self.input_files = parameters.input;
-       self.output_files = parameters.output;
+       self.input_files = parameters.input
+       self.output_files = parameters.output
        self.exclude_files = []
+       self.path_replace_pair = parameters.replace.split('=')
        if not os.path.exists(self.output_files):
            os.makedirs(self.output_files)
        with io.open(parameters.macros, 'r') as handle:
@@ -51,6 +52,7 @@ class PreProcesser():
                 for file in files:
                     input_file = root + os.sep + file
                     output_file = input_file.replace(self.input_files, self.output_files)
+                    output_file = output_file.replace(self.path_replace_pair[0].strip(),self.path_replace_pair[1].strip())
                     output_file_dir = output_file.rstrip(file)
                     if not os.path.exists(output_file_dir):
                         os.makedirs(output_file_dir)
@@ -97,6 +99,11 @@ def main():
     parser.add_argument(
       '-e', '--exclude', type=str,
       help='excluded files file'
+    )
+
+    parser.add_argument(
+      '-r', '--replace', type=str,
+      help='path repalce pair'
     )
 
     parameters = parser.parse_args()
