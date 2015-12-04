@@ -27,21 +27,21 @@ public class TestClass  extends Application
 
 ### Usage
 ```python
-preprocessing.py [-h] [-i INPUT] [-m MACROS] [-o OUTPUT] [-e EXCLUDE]
+preprocessor.py [-h] [-i INPUT] [-m MACROS] [-o OUTPUT] [-e EXCLUDE]
 ```
 
 optional arguments:
 ```python
 optional arguments:
-  -h, --help            show this help message and exit
+  -h, --help            Show this help message and exit
   -i INPUT, --input INPUT
-                        path to a directory or a file
+                        Path to a directory or a file
   -m MACROS, --macros MACROS
-                        macros define file, contents split by comma
+                        Macros define file, contents split by comma
   -o OUTPUT, --output OUTPUT
-                        path to the output files directory
+                        Path to the output files directory
   -e EXCLUDE, --exclude EXCLUDE
-                        excluded files file
+                        Excluded files file
 ```
 ### Support three basic macro commands
 1. include
