@@ -107,6 +107,11 @@ def main():
         help='Excluded files file'
     )
 
+    parser.add_argument(
+        '-r', '--replace', type=str,
+        help='Path repalce pair'
+    )
+
     parameters = parser.parse_args()
     p = PreProcesser(parameters)
     p.DoPreProcessing()
